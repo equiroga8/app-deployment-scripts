@@ -55,6 +55,6 @@ print colored("-> Installing mariadb-client", 'green')
 call("sudo lxc-attach --clear-env -n s1 -- apt -y install mariadb-client", shell = True)
 
 print colored("-> Conecting to remote database. Type \"show databases;\" to verify that the database has been configured correctly", 'green')
-call("sudo lxc-attach --clear-env -n s1 -- mysql -h 20.2.4.31 -u quiz --password='xxxx' quiz", shell = True)
-#run('sudo lxc-attach --clear-env -n s1 -- mysql -h 20.2.4.31 -u quiz --password=\'xxxx\' quiz', events = {'mysql>': 'show databases;', 'quiz': 'quit'})
+#call("sudo lxc-attach --clear-env -n s1 -- mysql -h 20.2.4.31 -u quiz --password='xxxx' quiz", shell = True)
+run('sudo lxc-attach --clear-env -n s1 -- mysql -h 20.2.4.31 -u quiz --password=\'xxxx\' quiz', events = {'[quiz]>': 'show databases;', '| quiz               |': 'quit'})
 

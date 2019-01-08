@@ -29,7 +29,7 @@ for server in servers:
 	call("sudo lxc-attach --clear-env -n " + server + " -- curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -", shell = True)
 
 	print colored("-> " + server + ": Installing nodejs and npm" , 'green')
-	call("sudo lxc-attach --clear-env -n " + server + " -- apt-get -y install nodejs", shell = True)
+	call("sudo lxc-attach --clear-env -n " + server + " -- apt-get -y install nodejs npm", shell = True)
 
 	print colored("-> " + server + ": Cloning quiz_2019 repository" , 'green')
 	call("sudo lxc-attach --clear-env -n " + server + " -- bash -c \"cd /root; git clone https://github.com/CORE-UPM/quiz_2019.git\"", shell = True)
@@ -56,11 +56,33 @@ for server in servers:
 	call("sudo lxc-attach --clear-env -n " + server + " -- bash -c \"cd /root/quiz_2019; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz\"" , shell = True)
 
 print colored("-> Migrating database" , 'green')
-call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd quiz_2019; npm run-script migrate_cdps\"" , shell = True)
+call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd /root/quiz_2019; npm run-script migrate_cdps\"" , shell = True)
 
-print colored("->  Generating default values for the database" , 'green')
-call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd quiz_2019; npm run-script seed_cdps\"" , shell = True)
+print colored("-> Generating default values for the database" , 'green')
+call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd /root/quiz_2019; npm run-script seed_cdps\"" , shell = True)
+
+print colored("-> Copying layout" , 'green')
+call("scp root@s1:/root/quiz_2019/views/layout.ejs /home/upm/Desktop/layoutCopy.ejs", shell = True)
 
 for server in servers:
+
+	fin = open("/home/upm/Desktop/layoutCopy.ejs", 'r') # in file
+	fout = open("/home/upm/Desktop/layout.ejs", 'w') # out file
+	for line in fin:
+		if "<h1><span class=\"no-narrow\">The</span> Quiz <span class=\"no-narrow\">Site</span></h1>" in line:
+			fout.write("<h1><span class=\"no-narrow\">The</span> Quiz <span class=\"no-narrow\">Site</span><span class=\"no-narrow\">: Hosted on " + server + "</span></h1>")
+		else:
+			fout.write(line)
+
+	fin.close()
+	fout.close()
+
+	print colored("-> Copying layout to " + server  , 'green')
+	call("scp /home/upm/Desktop/layout.ejs root@" + server + ":/root/quiz_2019/views/layout.ejs ", shell = True)
+	call("rm -r /home/upm/Desktop/layout.ejs", shell = True)
+
 	print colored("-> " + server + ": Starting service on port 3000" , 'green')
-	call("sudo lxc-attach --clear-env -n " + server + " -- bash -c \"cd quiz_2019; ./node_modules/forever/bin/forever start ./bin/www\"" , shell = True)	
+	call("sudo lxc-attach --clear-env -n " + server + " -- bash -c \"cd /root/quiz_2019; ./node_modules/forever/bin/forever start ./bin/www\"" , shell = True)	
+
+
+call("rm -r /home/upm/Desktop/layoutCopy.ejs", shell = True)	
