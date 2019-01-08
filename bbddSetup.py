@@ -17,8 +17,7 @@
 
 from subprocess import call
 from termcolor import colored
-
-print colored("-> Starting BBDD setup", 'blue')
+from pexpect import *
 
 print colored("-> Updating VM", 'green')
 call("sudo lxc-attach --clear-env -n bbdd -- apt update", shell = True)
@@ -57,5 +56,5 @@ call("sudo lxc-attach --clear-env -n s1 -- apt -y install mariadb-client", shell
 
 print colored("-> Conecting to remote database. Type \"show databases;\" to verify that the database has been configured correctly", 'green')
 call("sudo lxc-attach --clear-env -n s1 -- mysql -h 20.2.4.31 -u quiz --password='xxxx' quiz", shell = True)
+#run('sudo lxc-attach --clear-env -n s1 -- mysql -h 20.2.4.31 -u quiz --password=\'xxxx\' quiz', events = {'mysql>': 'show databases;', 'quiz': 'quit'})
 
-print colored("-> BBDD Setup finished", 'blue')
