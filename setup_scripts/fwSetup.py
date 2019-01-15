@@ -11,7 +11,7 @@ from subprocess import call
 from termcolor import colored
 
 print colored("-> Copying firewall configuration file to fw VM, type the password to continue.", 'green')
-call("scp /home/upm/Desktop/fw.fw root@fw:/root/fw.fw", shell = True)
+call("scp /home/upm/practica/cfg_files/fw.fw root@fw:/root/fw.fw", shell = True)
 
 print colored("-> Executing firewall configuration file", 'green')
 call("sudo lxc-attach --clear-env -n fw -- /root/./fw.fw", shell = True)
@@ -22,4 +22,3 @@ print colored("-> Pinging fw (Should return no response)", 'green')
 call("ping -c3 20.2.1.1", shell = True)
 print colored("-> Pinging lb (Should return response)", 'green')
 call("ping -c3 20.2.2.2", shell = True)
-print colored("-> Firewall setup completed", 'green')

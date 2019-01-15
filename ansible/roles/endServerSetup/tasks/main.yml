@@ -1,0 +1,10 @@
+- name: "Editing /root/quiz_2019/views/layout.ejs"
+  lineinfile: 
+    path: /root/quiz_2019/views/layout.ejs
+    regexp: '<h1><span class=\"no-narrow\">The</span> Quiz <span class=\"no-narrow\">Site</span></h1>'
+    line: '<h1><span class=\"no-narrow\">The</span> Quiz <span class=\"no-narrow\">Site</span><span class=\"no-narrow\">: Hosted on {{inventory_hostname}} </span></h1>' 
+
+- name: "Starting service on port 3000"
+  shell: ./node_modules/forever/bin/forever start ./bin/www
+  args:
+    chdir: /root/quiz_2019

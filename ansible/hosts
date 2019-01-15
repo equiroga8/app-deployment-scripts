@@ -1,0 +1,12 @@
+c1	ansible_ssh_user=root 
+c2	ansible_ssh_user=root
+fw	ansible_ssh_user=root 
+lb	ansible_ssh_user=root 
+s1	ansible_ssh_user=root 
+s2	ansible_ssh_user=root 
+s3	ansible_ssh_user=root 
+bbdd	ansible_ssh_user=root 
+nas1	ansible_ssh_user=root 
+nas2	ansible_ssh_user=root 
+nas3	ansible_ssh_user=root 
+

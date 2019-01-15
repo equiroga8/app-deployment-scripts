@@ -86,3 +86,9 @@ for server in servers:
 
 
 call("rm -r /home/upm/Desktop/layoutCopy.ejs", shell = True)	
+
+
+
+
+
+

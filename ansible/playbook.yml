@@ -1,0 +1,15 @@
+---
+- hosts: servers
+  become: true
+  roles:
+  - startServerSetup
+
+- hosts: s1
+  become: true
+  roles: 
+  - dbServerSetup
+
+- hosts: servers
+  become: true
+  roles:
+  - endServerSetup

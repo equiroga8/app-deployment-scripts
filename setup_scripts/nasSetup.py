@@ -32,7 +32,6 @@ call("sudo lxc-attach --clear-env -n nas1 -- gluster volume set nas network.ping
 
 for x in range (1,4):
 	print colored("-> Creating directory /mnt/nas and conection to the volume on s" + str(x) , 'green')
-	call("sudo lxc-attach --clear-env -n s" + str(x) + " -- mkdir /mnt/nas", shell = True)
 	call("sudo lxc-attach --clear-env -n s" + str(x) + " -- mount -t glusterfs 20.2.4.21:/nas /mnt/nas", shell = True)
 
 

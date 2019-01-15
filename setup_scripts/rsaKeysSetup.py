@@ -6,7 +6,7 @@ import sys
 virtualMachines = ['c1', 'c2', 'fw', 'lb', 's1', 's2', 's3', 'bbdd', 'nas1', 'nas2', 'nas3']
 
 print colored("-> Creating 4096 bit private/public RSA keys. Press enter", 'green')
-call("ssh-keygen -t rsa -b 4096", shell = True)
+call('ssh-keygen -t rsa -b 4096', shell = True)
 
 print colored("-> Copying generated public key to all virtual machines.", 'green')
 for remoteServer in virtualMachines:
