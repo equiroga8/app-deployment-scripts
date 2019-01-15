@@ -1,0 +1,56 @@
+- name: "Installing npm and nodejs"
+  apt: 
+    pkg: "{{ packages }}"
+  vars:
+    packages:
+    - npm
+    - nodejs
+
+- name: "Cloning git repo"
+  git:
+    repo: https://github.com/CORE-UPM/quiz_2019.git
+    dest: /root/quiz_2019
+    force: yes
+
+- name: "Creating quiz_2019/public/uploads folder"
+  file: 
+    path: /root/quiz_2019/public/uploads 
+    state: directory
+
+- name: "Creating quiz_2019/public/uploads folder"
+  file: 
+    path: /mnt/nas 
+    state: directory
+
+- name: "Creating symbolic link between /public/uploads and /mnt/nas"
+  file:
+    src: /root/quiz_2019/public/uploads/
+    dest: /mnt/nas
+    state: link
+    force: yes
+
+- name: "Installing npm modules"
+  npm: 
+    path: /root/quiz_2019
+
+- name: "Installing forever module"
+  npm: 
+    name: forever
+    path: /root/quiz_2019
+
+- name: "Installing mysql2 module"
+  npm: 
+    name: mysql2
+    path: /root/quiz_2019        
+
+- name: "Opening register"
+  lineinfile: 
+    path: /etc/profile
+    line: export QUIZ_OPEN_REGISTER=yes
+
+- name: "Connecting to bbdd"
+  lineinfile: 
+    path: /etc/profile
+    line: export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz 
+
+
