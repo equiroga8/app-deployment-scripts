@@ -37,7 +37,7 @@ for server in servers:
 	print colored("-> " + server + ": Creating quiz_2019/public/uploads folder" , 'green')
 	call("sudo lxc-attach --clear-env -n " + server + " -- mkdir /root/quiz_2019/public/uploads", shell = True)
 
-	print colored("-> " + server + ": Creating symbolic link between /public/uploads adn /mnt/nas" , 'green')	
+	print colored("-> " + server + ": Creating symbolic link between /public/uploads and /mnt/nas" , 'green')	
 	call("sudo lxc-attach --clear-env -n " + server + " -- ln -s /root/quiz_2019/public/uploads/ /mnt/nas", shell = True)
 
 	print colored("-> " + server + ": Installing npm modules" , 'green')
@@ -54,17 +54,17 @@ for server in servers:
 
 	print colored("-> " + server + ": Connecting to bbdd" , 'green')
 	call("sudo lxc-attach --clear-env -n " + server + " -- bash -c \"cd /root/quiz_2019; export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz\"" , shell = True)
+	
+	if server == "s1":
 
-print colored("-> Migrating database" , 'green')
-call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd /root/quiz_2019; npm run-script migrate_cdps\"" , shell = True)
+		print colored("-> Migrating database" , 'green')
+		call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd /root/quiz_2019; npm run-script migrate_cdps\"" , shell = True)
 
-print colored("-> Generating default values for the database" , 'green')
-call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd /root/quiz_2019; npm run-script seed_cdps\"" , shell = True)
+		print colored("-> Generating default values for the database" , 'green')
+		call("sudo lxc-attach --clear-env -n s1 -- bash -c \"cd /root/quiz_2019; npm run-script seed_cdps\"" , shell = True)
 
-print colored("-> Copying layout" , 'green')
-call("scp root@s1:/root/quiz_2019/views/layout.ejs /home/upm/Desktop/layoutCopy.ejs", shell = True)
-
-for server in servers:
+		print colored("-> Copying layout" , 'green')
+		call("scp root@s1:/root/quiz_2019/views/layout.ejs /home/upm/Desktop/layoutCopy.ejs", shell = True)
 
 	fin = open("/home/upm/Desktop/layoutCopy.ejs", 'r') # in file
 	fout = open("/home/upm/Desktop/layout.ejs", 'w') # out file
