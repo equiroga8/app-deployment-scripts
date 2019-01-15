@@ -6,7 +6,7 @@ call("pip install pexpect", shell = True)
 call("sudo apt-add-repository -y ppa:ansible/ansible", shell = True)
 call("sudo apt-get update", shell = True)
 call("sudo apt-get -y install ansible", shell = True)
-call ("sudo mv -f /home/upm/practica/ansible/roles  /etc/ansible/roles", shell = True)
+call ("sudo mv -f /home/upm/practica/ansible/roles  /etc/ansible/", shell = True)
 call ("sudo mv -f /home/upm/practica/ansible/hosts  /etc/ansible/hosts", shell = True)
 call ("sudo mv -f /home/upm/practica/ansible/playbook.yml  /etc/ansible/playbook.yml", shell = True)
 
