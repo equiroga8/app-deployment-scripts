@@ -1,9 +1,16 @@
-- name: "Migrating database"
-  shell: npm run-script migrate_cdps 
-  args:
-    chdir: /root/quiz_2019
+- name: "Installing python-pymysql"
+  apt: 
+    pkg: python-pymysql
 
-- name: "Seeding database"
-  shell: npm run-script seed_cdps 
-  args:
-    chdir: /root/quiz_2019
+- name: Copy database .sql file
+  copy:
+    src: /home/upm/practica/cfg_files/data.sql
+    dest: /tmp
+
+- name: Restore database
+  mysql_db:
+    name: quiz
+    state: import
+    target: /tmp/data.sql
+    login_user: quiz
+    login_password: xxxx

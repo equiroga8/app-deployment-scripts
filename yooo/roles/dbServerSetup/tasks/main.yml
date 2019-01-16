@@ -1,9 +1,0 @@
-- name: "Migrating database"
-  shell: npm run-script migrate_cdps 
-  args:
-    chdir: /root/quiz_2019
-
-- name: "Seeding database"
-  shell: npm run-script seed_cdps 
-  args:
-    chdir: /root/quiz_2019
