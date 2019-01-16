@@ -21,7 +21,7 @@ print colored("-> fw setup finished", 'cyan')
 
 print colored("---------------------------------", 'yellow')
 
-print colored("-> Starting server setup with ansible. Type the password", 'cyan')
+print colored("-> Starting server setup with ansible", 'cyan')
 call('python /home/upm/practica/setup_scripts/ansibleServerSetup.py', shell = True)
 print colored("-> server setup finished", 'cyan')
 

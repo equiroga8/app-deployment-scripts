@@ -10,7 +10,7 @@
 from subprocess import call
 from termcolor import colored
 
-print colored("-> Copying firewall configuration file to fw VM, type the password to continue.", 'green')
+print colored("-> Copying firewall configuration file to fw VM.", 'green')
 call("scp /home/upm/practica/cfg_files/fw.fw root@fw:/root/fw.fw", shell = True)
 
 print colored("-> Executing firewall configuration file", 'green')

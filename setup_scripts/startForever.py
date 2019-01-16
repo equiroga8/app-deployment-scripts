@@ -7,5 +7,5 @@ servers = ['s1', 's2', 's3']
 
 for server in servers:
 
-	print colored("-> Starting service on " + server + ". Type 'forever start ./bin/www'" , 'green')
-	call("ssh -X -t root@"+ server +" \"cd /root/quiz_2019 ; bash\"", shell = True)
+	print colored("-> Starting service on " + server + ". Change Directory to 'quiz_2019' and type 'forever start ./bin/www'" , 'green')
+	call("ssh -X root@"+ server, shell = True)
