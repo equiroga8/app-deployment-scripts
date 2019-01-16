@@ -6,6 +6,9 @@
 from subprocess import call
 from termcolor import colored
 
+print colored("-> Updating VM", 'green')
+call("sudo lxc-attach --clear-env -n lb -- apt update", shell = True)
+
 print colored("-> Stopping apache service", 'green')
 call("sudo lxc-attach --clear-env -n lb -- service apache2 stop", shell = True)
 

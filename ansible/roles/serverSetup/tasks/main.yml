@@ -1,7 +1,6 @@
-- name: Update and upgrade apt packages
+- name: Update apt packages
   become: true
   apt:
-    upgrade: yes
     update_cache: yes
 
 - name: "Installing npm and nodejs"
@@ -39,7 +38,7 @@
   npm: 
     path: /root/quiz_2019
 
-- name: "Installing forever module"
+- name: "Installing forever module globally"
   npm: 
     name: forever
     global: yes
@@ -49,7 +48,7 @@
     name: mysql2
     path: /root/quiz_2019        
 
-- name: "Opening register"
+- name: "Opening Quiz app register"
   lineinfile: 
     path: /etc/profile
     line: export QUIZ_OPEN_REGISTER=yes
