@@ -7,7 +7,7 @@ call("pip install termcolor", shell = True)
 # Instala el modulo de automatizacion pexpect para poder deshacernos de algunos prompts
 call("pip install pexpect", shell = True)
 
-# Añade la ultima version de ansible
+# Anade la ultima version de ansible
 call("sudo apt-add-repository -y ppa:ansible/ansible", shell = True)
 
 # Actualiza los repositorios
