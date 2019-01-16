@@ -7,7 +7,7 @@
     src: /home/upm/practica/cfg_files/data.sql
     dest: /tmp
 
-- name: Restore database
+- name: "Restoring database"
   mysql_db:
     name: quiz
     state: import
