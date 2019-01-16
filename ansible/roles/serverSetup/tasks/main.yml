@@ -1,3 +1,9 @@
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
 - name: "Installing npm and nodejs"
   apt: 
     pkg: "{{ packages }}"
@@ -36,7 +42,7 @@
 - name: "Installing forever module"
   npm: 
     name: forever
-    path: /root/quiz_2019
+    global: yes
 
 - name: "Installing mysql2 module"
   npm: 
@@ -52,5 +58,11 @@
   lineinfile: 
     path: /etc/profile
     line: export DATABASE_URL=mysql://quiz:xxxx@20.2.4.31:3306/quiz 
+
+- name: "Editing /root/quiz_2019/views/layout.ejs"
+  lineinfile: 
+    path: /root/quiz_2019/views/layout.ejs
+    regexp: '<h1><span class=\"no-narrow\">The</span> Quiz <span class=\"no-narrow\">Site</span></h1>'
+    line: '<h1><span class=\"no-narrow\">The</span> Quiz <span class=\"no-narrow\">Site</span><span class=\"no-narrow\">: Hosted on {{inventory_hostname}} </span></h1>'     
 
 

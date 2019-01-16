@@ -1,9 +1,4 @@
 ---
-- hosts: servers
-  become: true
-  roles:
-  - startServerSetup
-
 - hosts: bbdd
   become: true
   roles: 
@@ -12,4 +7,4 @@
 - hosts: servers
   become: true
   roles:
-  - endServerSetup
+  - serverSetup
